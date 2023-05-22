@@ -1,0 +1,24 @@
+int goldRabbits(int n)
+{
+	if (n == 0 || n == 1)
+		return 1;
+	int a = goldRabbits(n - 1);
+	int b = goldRabbits(n - 2);
+	if (a > INT_MAX - b)
+		throw string("Overflow Error" + std::to_string(n));
+	return a + b;
+}
+
+BigInt goldRabbits(BigInt n)
+{
+	static map<BigInt, BigInt> Map;
+
+	if (n == 0 || n == 1) {
+		Map.insert({ n,BigInt(1) });
+	}
+	else {
+		BigInt sum = Map[n - 1] + Map[n - 2];
+		Map.insert({ n,sum });
+	}
+	return Map[n];
+}
